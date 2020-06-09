@@ -1,0 +1,46 @@
+#include<iostream>
+#include <vector>
+#include<algorithm>
+#include <numeric>
+#define ll long long
+using namespace std;
+
+int main() {
+    int t;
+    ll N, M, Q, K;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin>>t;
+    while (t--) {
+        ll N;
+        cin >> N;
+        ll arr[N];
+        ll leftsum[N],rightsum[N];
+        for (ll i = 0; i < N; i++) {
+            cin >> arr[i];
+        }
+        ll sum=arr[0];
+        leftsum[0]=sum;
+        for (ll i = 1; i < N; i++) {
+            leftsum[i]=arr[i]+leftsum[i-1];
+        }
+        sum=arr[N-1];
+        rightsum[N-1]=sum;
+        for (ll i = N-2; i >=0; i--) {
+            rightsum[i]=arr[i]+rightsum[i+1];
+        }
+        bool flag=0;
+        ll i; 
+        for  (i = 0; i < N; i++) {
+            if(rightsum[i]==leftsum[i]){
+                flag=true;
+                break;
+            }               
+        }
+        if(flag)
+            cout<<i+1<<endl;
+            else
+            cout<<"-1"<<endl;   
+    }
+    return 0;
+}
